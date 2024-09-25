@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using ScholarSyncMVC.Data;
+using ScholarSyncMVC.Models;
+
 namespace ScholarSyncMVC
 {
     public class Program
@@ -8,7 +13,13 @@ namespace ScholarSyncMVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            //Context Services
+            builder.Services.AddDbContext<ScholarSyncConext>(options => options.UseSqlServer
+            (builder.Configuration.GetConnectionString("conn")));
 
+            //Identity Services 
+            builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<ScholarSyncConext>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
