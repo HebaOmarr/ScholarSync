@@ -1,0 +1,65 @@
+﻿@model ScholarSyncMVC.ViewModels.CategoryVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="m-auto w-75  bg-white p-5">
+    <h1>Edit Category</h1>
+    @if (!string.IsNullOrEmpty(TempData["Message"] as string))
+    {
+        <div class="alert alert-primary mt-3 mb-2">
+            @TempData["message"]
+        </div>
+    }
+    <hr />
+
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+
+        <div asp-validation-summary="All"></div>
+        <div class="form-row  ">
+
+            <br />
+            <div class="col">
+                <label class="control-label fw-bold fs-4">Name</label>
+
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group ">
+                <label for="example-textarea">وصف المنتج</label>
+                <textarea class="form-control" asp-for="Description" id="example-textarea" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+
+            </div>
+            <br />
+            <div>
+                <dl class="row">
+                <dt class="col-sm-2">
+                    Photo
+                </dt>
+                <dd>
+                        <input type="hidden" asp-for="PhotoURL" />
+                    <img src="~/Uploads/category/@Model.PhotoURL" class="w-50" alt="Alternate Text" />
+                </dd>
+                </dl>
+            </div>
+            <div class="col">
+                @* <label  class="control-label fw-bold fs-4">صوره</label> *@
+                <input asp-for="PhotoFile" class="form-control form-control-lg" type="file" placeholder="صوره" id="formFile" />
+                <span asp-validation-for="PhotoFile" class="text-danger"></span>
+            </div>
+
+        </div>
+
+
+        <div class="form-group mt-4">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-light">Back</a>
+        </div>
+    </form>
+
+</div>
+

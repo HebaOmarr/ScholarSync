@@ -1,0 +1,73 @@
+﻿@model ScholarSyncMVC.ViewModels.CategoryVM
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <form asp-action="Delete" method="post">
+
+        <div class="col-md-4 mb-3">
+            <label>اسم المنتج</label>
+            <input type="text" class="form-control" asp-for="Name" readonly>
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+        </div>
+        <div class="form-group ">
+            <label for="example-textarea">وصف المنتج</label>
+            <textarea class="form-control" asp-for="Description" id="example-textarea" rows="4" readonly></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+
+        </div>
+        <div class="col-md-4 mb-3" hidden>
+            <label>Path</label>
+            <input type="text" class="form-control" asp-for="FilePath" readonly>
+            <span asp-validation-for="FilePath" class="text-danger"></span>
+
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="col-form-label fw-bold fs-4">الصوره</label>
+            <div class="image-container">
+                <img src="~/Uploads/category/@Model.PhotoURL" class="rounded-2 img-fluid img-thumbnail" alt="Category Image" />
+            </div>
+        </div>
+        <input type="hidden" asp-for="PhotoURL" />
+        <div class="form-group mt-4">
+            <input type="submit" value="حذف" class="btn btn-danger " />
+            <a asp-action="Index" class="btn btn-light">العوده</a>
+        </div>
+
+
+    </form>
+       
+</div>
+        
+  
+
+    <style>
+        .image-container {
+            width: 100%;
+            height: auto;
+            max-width: 310px; /* Adjust the max-width as needed */
+            max-height: 310px; /* Adjust the max-height as needed */
+            border: 1px solid #ddd;
+            padding: 5px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .image-container img {
+                max-width: 300px;
+                max-height: 300px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+    </style>
+ 

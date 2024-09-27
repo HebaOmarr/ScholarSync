@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ScholarSyncMVC.Data;
+using ScholarSyncMVC.Helper;
 using ScholarSyncMVC.Models;
+using ScholarSyncMVC.Repository;
+using ScholarSyncMVC.Repository.Contract;
 
 namespace ScholarSyncMVC
 {
@@ -20,6 +23,8 @@ namespace ScholarSyncMVC
             //Identity Services 
             builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ScholarSyncConext>();
+            builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+            builder.Services.AddAutoMapper(typeof(MappingConfig));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
