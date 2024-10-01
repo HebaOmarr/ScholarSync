@@ -31,6 +31,7 @@ namespace ScholarSyncMVC.Repository
 
         public async Task<IEnumerable<T>> GetAll()
         {
+            
             return await _conext.Set<T>().Where(x =>x.IsDeleted == false).ToListAsync();
         }
 

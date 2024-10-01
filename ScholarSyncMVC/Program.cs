@@ -25,6 +25,8 @@ namespace ScholarSyncMVC
                 .AddEntityFrameworkStores<ScholarSyncConext>();
             builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
             builder.Services.AddAutoMapper(typeof(MappingConfig));
+            builder.Services.AddScoped<IScholarship, ScholarshipRepository>();
+            builder.Services.AddScoped<IRequirement, RequirementRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

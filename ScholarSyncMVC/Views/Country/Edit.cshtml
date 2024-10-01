@@ -1,8 +1,8 @@
-﻿@model ScholarSyncMVC.ViewModels.CategoryVM
-
+﻿@model CounryEditVM
 @{
     ViewData["Title"] = "Edit";
 }
+
 
 <div class="m-auto w-75  bg-white p-5">
     <h1>Edit Category</h1>
@@ -27,24 +27,19 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <br />
-            <div class="form-group ">
-                <label for="example-textarea">وصف المنتج</label>
-                <textarea class="form-control" asp-for="Description" id="example-textarea" rows="4"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-
-            </div>
+           
             <br />
             <div>
                 <dl class="row">
-                <dt class="col-sm-2">
-                    Photo
-                </dt>
-                <dd>
+                    <dt class="col-sm-2">
+                        Photo
+                    </dt>
+                    <dd>
                         <input type="hidden" asp-for="FilePath" />
+
                         <input type="hidden" asp-for="PhotoURL" />
-                    <img src="~/Uploads/category/@Model.PhotoURL" class="w-50" alt="Alternate Text" />
-                </dd>
+                        <img src="~/Uploads/country/@Model.PhotoURL" class="w-50" alt="Alternate Text" />
+                    </dd>
                 </dl>
             </div>
             <div class="col">
@@ -63,4 +58,5 @@
     </form>
 
 </div>
+
 

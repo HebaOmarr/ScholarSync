@@ -1,26 +1,45 @@
 ﻿@model ScholarSyncMVC.ViewModels.UniversityVM
 
 @{
-	ViewData["Title"] = "Create University";
+    ViewData["Title"] = "Create University";
 }
 
-<h1>Create University</h1>
+<div class="m-auto w-75  bg-white p-5">
+    <h1>Create New University</h1>
+    @if (!string.IsNullOrEmpty(TempData["Message"] as string))
+    {
+        <div class="alert alert-primary mt-3 mb-2">
+            @TempData["message"]
+        </div>
+    }
+    <hr />
 
-<form asp-action="Create">
-	<div class="form-group">
-		<label asp-for="Name" class="control-label"></label>
-		<input asp-for="Name" class="form-control" />
-		<span asp-validation-for="Name" class="text-danger"></span>
-	</div>
-	<div class="form-group">
-		<label asp-for="ContactInfo" class="control-label"></label>
-		<input asp-for="ContactInfo" class="form-control" />
-		<span asp-validation-for="ContactInfo" class="text-danger"></span>
-	</div>
-	<button type="submit" class="btn btn-primary">Create</button>
-	<a asp-action="Index" class="btn btn-secondary">Cancel</a>
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" placeholder="Enter university name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="ContactInfo" class="control-label"></label>
+                <input asp-for="ContactInfo" class="form-control" placeholder="Enter contact information" />
+                <span asp-validation-for="ContactInfo" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mt-4 text-center">
+        <input type="submit" value="Create" class="btn btn-primary btn-lg" />
+        <a asp-action="Index" class="btn btn-light btn-lg">Back</a>
+    </div>
 </form>
-
+</div>
 @section Scripts {
-	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_ValidationScriptsPartial" />
 }

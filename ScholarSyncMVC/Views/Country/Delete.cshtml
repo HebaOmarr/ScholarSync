@@ -1,5 +1,4 @@
-﻿@model ScholarSyncMVC.ViewModels.CategoryVM
-
+﻿@model CountryVM
 @{
     ViewData["Title"] = "Delete";
 }
@@ -28,11 +27,7 @@
             <input type="text" class="form-control" asp-for="Name" readonly>
 
         </div>
-        <div class="form-group ">
-            <label asp-for="Description" for="example-textarea"></label>
-            <textarea class="form-control" asp-for="Description" id="example-textarea" rows="4" readonly></textarea>
-
-        </div>
+        
         <div class="col-md-4 mb-3" hidden>
             <label>Path</label>
             <input type="text" class="form-control" asp-for="FilePath" readonly>
@@ -41,7 +36,7 @@
         <div class="col-md-4 mb-3">
             <label class="col-form-label fw-bold fs-4">Photo</label>
             <div class="image-container">
-                <img src="~/Uploads/category/@Model.PhotoURL" class="rounded-2 img-fluid img-thumbnail" alt="Category Image" />
+                <img src="~/Uploads/country/@Model.PhotoURL" class="rounded-2 img-fluid img-thumbnail" alt="Category Image" />
             </div>
         </div>
         <input type="hidden" asp-for="PhotoURL" />
@@ -52,32 +47,31 @@
 
 
     </form>
-       
+
 </div>
-        
-  
 
-    <style>
-        .image-container {
-            width: 100%;
-            height: auto;
-            max-width: 310px; /* Adjust the max-width as needed */
-            max-height: 310px; /* Adjust the max-height as needed */
-            border: 1px solid #ddd;
-            padding: 5px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
+
+<style>
+    .image-container {
+        width: 100%;
+        height: auto;
+        max-width: 310px; /* Adjust the max-width as needed */
+        max-height: 310px; /* Adjust the max-height as needed */
+        border: 1px solid #ddd;
+        padding: 5px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .image-container img {
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
         }
-
-            .image-container img {
-                max-width: 300px;
-                max-height: 300px;
-                object-fit: cover;
-                border-radius: 4px;
-            }
-    </style>
- 
+</style>

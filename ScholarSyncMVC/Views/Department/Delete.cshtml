@@ -1,5 +1,4 @@
-﻿@model UniversityVM
-
+﻿@model Department
 @{
     ViewData["Title"] = "Delete";
 }
@@ -26,11 +25,7 @@
             <label asp-for="Name"></label>
             <input type="text" class="form-control" asp-for="Name" readonly>
         </div>
-        <div class="col-md-4 mb-3">
-            <label asp-for="ContactInfo"></label>
-            <input type="text" class="form-control" asp-for="ContactInfo" readonly>
-
-        </div>
+        
         <div class="form-group mt-4">
             <input type="submit" value="Delete" class="btn btn-danger " />
             <a asp-action="Index" class="btn btn-light">Back</a>

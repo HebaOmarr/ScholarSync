@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Uploads\category\" />
+    <Folder Include="wwwroot\Uploads\country\" />
   </ItemGroup>
 
 </Project>

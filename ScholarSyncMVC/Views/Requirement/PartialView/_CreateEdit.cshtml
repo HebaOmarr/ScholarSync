@@ -1,0 +1,21 @@
+﻿@model RequirementVM
+
+<div asp-validation-summary="All"></div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="inputState">Scholarship Name</label>
+            <select asp-for="ScholarShipId" class="form-control" asp-items="@(new SelectList(Model.scholarships,"Id","Name"))">
+                <option value="0">Choose Scholarship Name</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="Requirement" class="control-label"></label>
+            <input asp-for="Requirement" class="form-control" placeholder="Enter Requirement of scholarship" />
+            <span asp-validation-for="Requirement" class="text-danger"></span>
+        </div>
+    </div>
+</div>

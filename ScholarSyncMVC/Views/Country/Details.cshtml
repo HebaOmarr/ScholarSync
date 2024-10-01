@@ -1,5 +1,4 @@
-﻿@model ScholarSyncMVC.ViewModels.CategoryVM
-
+﻿@model CountryVM
 @{
     ViewData["Title"] = "Details";
 }
@@ -7,27 +6,27 @@
 <h1>Details</h1>
 
 <div>
-   
+    
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Id)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             Photo
         </dt>
-        <dd >
-            <img src="~/Uploads/category/@Model.PhotoURL" class="w-25" alt="Alternate Text" />
+        <dd>
+            <img src="~/Uploads/country/@Model.PhotoURL" class="w-25" alt="Alternate Text" />
         </dd>
     </dl>
 </div>

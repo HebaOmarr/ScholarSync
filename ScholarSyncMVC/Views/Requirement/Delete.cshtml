@@ -1,5 +1,4 @@
-﻿@model UniversityVM
-
+﻿@model RequirementVM
 @{
     ViewData["Title"] = "Delete";
 }
@@ -13,7 +12,6 @@
     }
 
 </div>
-
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <form asp-action="Delete" method="post">
@@ -22,13 +20,17 @@
             <label asp-for="Id"></label>
             <input type="text" class="form-control" asp-for="Id" readonly />
         </div>
-        <div class="col-md-4 mb-3">
-            <label asp-for="Name"></label>
-            <input type="text" class="form-control" asp-for="Name" readonly>
+        <div class="col-md-4 mb-3" hidden>
+            <label asp-for="ScholarShipId"></label>
+            <input type="text" class="form-control" asp-for="ScholarShipId" hidden />
         </div>
         <div class="col-md-4 mb-3">
-            <label asp-for="ContactInfo"></label>
-            <input type="text" class="form-control" asp-for="ContactInfo" readonly>
+            <label asp-for="Scholarship.Name"></label>
+            <input type="text" class="form-control" value="@Model.Scholarship.Name" readonly>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label asp-for="Requirement"></label>
+            <input type="text" class="form-control" asp-for="Requirement" readonly>
 
         </div>
         <div class="form-group mt-4">

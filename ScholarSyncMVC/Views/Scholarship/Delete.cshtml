@@ -1,0 +1,150 @@
+﻿@model ScholarshipVM
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="m-auto w-75  bg-white p-3">
+    @if (!string.IsNullOrEmpty(TempData["Message"] as string))
+    {
+        <div class="alert alert-primary mt-3 mb-2">
+            @TempData["message"]
+        </div>
+    }
+
+</div>
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <form asp-action="Delete" method="post">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" readonly/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Degree" class="control-label"></label>
+                    <input asp-for="Degree" class="form-control" readonly/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="example-textarea">Description</label>
+            <textarea class="form-control" asp-for="Description" id="example-textarea" rows="4" readonly></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="StartDate" class="control-label"></label>
+                    <input asp-for="StartDate" class="form-control" type="date" readonly/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="EndDate" class="control-label"></label>
+                    <input asp-for="EndDate" class="form-control" type="date" readonly/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Cost" class="control-label"></label>
+                    <input asp-for="Cost" class="form-control" readonly/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Duration" class="control-label"></label>
+                    <input asp-for="Duration" class="form-control" readonly/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input asp-for="CategoryId" class="form-control" hidden />
+
+                </div>
+                <div class="form-group">
+                    <label for="inputState">Category Name</label>
+                    <input value="@Model.Category.Name" class="form-control" readonly />
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input asp-for="UniversityId" class="form-control" hidden />
+
+                </div>
+                <div class="form-group">
+                    <label for="inputState">University Name</label>
+                    <input value="@Model.University.Name" class="form-control" readonly />
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input asp-for="CountryId" class="form-control" hidden />
+
+                </div>
+                <div class="form-group">
+                    <label for="inputState">Country Name</label>
+                    <input value="@Model.Country.Name" class="form-control" readonly />
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input asp-for="DepartmentId" class="form-control" hidden />
+                </div>
+                <div class="form-group">
+                    <label for="inputState">Department Name</label>
+                    <input value="@Model.Department.Name" class="form-control" readonly />
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group mt-4">
+            <input type="submit" value="Delete" class="btn btn-danger " />
+            <a asp-action="Index" class="btn btn-light">Back</a>
+        </div>
+
+
+    </form>
+
+</div>
+
+
+
+<style>
+    .image-container {
+        width: 100%;
+        height: auto;
+        max-width: 310px; /* Adjust the max-width as needed */
+        max-height: 310px; /* Adjust the max-height as needed */
+        border: 1px solid #ddd;
+        padding: 5px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .image-container img {
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+</style>

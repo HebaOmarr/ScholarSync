@@ -14,7 +14,7 @@
         </div>
     }
     <hr />
-
+    
 
     <form asp-action="Create" method="post" enctype="multipart/form-data">
 
@@ -30,7 +30,7 @@
             </div>
             <br />
             <div class="form-group ">
-                <label for="example-textarea">وصف المنتج</label>
+                <label for="example-textarea">Description</label>
                 <textarea class="form-control" asp-for="Description" id="example-textarea" rows="4"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
 
@@ -56,8 +56,8 @@
 
 
 
-@* @section Scripts {
+@section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
 }
-    *@
+   

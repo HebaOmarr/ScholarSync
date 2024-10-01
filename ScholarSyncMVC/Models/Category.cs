@@ -1,4 +1,7 @@
-﻿namespace ScholarSyncMVC.Models
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace ScholarSyncMVC.Models
 {
     public class Category : BaseEntity 
     {

@@ -10,6 +10,14 @@ namespace ScholarSyncMVC.Helper
         {
             CreateMap<Category, CategoryVM>().ReverseMap();
             CreateMap<Category, CategoryCreatedVM>().ReverseMap();
+            CreateMap<UniversityVM, University>().ReverseMap();
+            CreateMap<Scholarship, ScholarshipVM>().ReverseMap();
+            CreateMap<Country, CountryVM>().ReverseMap();
+            CreateMap<Country, CounryEditVM>().ReverseMap();
+            CreateMap<Requirements, RequirementVM>().ReverseMap();
+
+
+
 
         }
     }

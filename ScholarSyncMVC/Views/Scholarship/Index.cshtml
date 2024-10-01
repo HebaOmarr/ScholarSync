@@ -1,10 +1,7 @@
-﻿@model IEnumerable<University>
-
+﻿@model IEnumerable<Scholarship>
 @{
-	ViewData["Title"] = "Universities";
+	ViewData["Title"] = "Scholarships";
 }
-
-
 <div class="m-auto w-75  bg-white p-3">
 	@if (!string.IsNullOrEmpty(TempData["Message"] as string))
 	{
@@ -15,14 +12,24 @@
 
 </div>
 <p>
-	<a class="btn btn-success" asp-action="Create">Create New University</a>
+	<a class="btn btn-success" asp-action="Create">Create New Scholarship</a>
 </p>
 <table class="table table-bordered text-center">
 	<thead>
-	<tr>
+		<tr>
 			<th>Id</th>
-		<th>Name</th>
-		<th>Contact Info</th>
+
+			<th>Name</th>
+			<th>StartDate</th>
+			<th>EndDate</th>
+			<th>Degree</th>
+			<th>Cost</th>
+			<th>Duration</th>
+			<th>Category</th>
+			<th>University</th>
+			<th>Country</th>
+			<th>Department</th>
+
 			<th>
 				Details
 			</th>
@@ -32,15 +39,23 @@
 			<th>
 				Delete
 			</th>
-	</tr>
+		</tr>
 	</thead>
 	<tbody>
-	@foreach (var item in Model)
-	{
-		<tr>
+		@foreach (var item in Model)
+		{
+			<tr>
 				<td>@item.Id</td>
-			<td>@item.Name</td>
-			<td>@item.ContactInfo</td>
+				<td>@item.Name</td>
+				<td>@item.StartDate</td>
+				<td>@item.EndDate</td>
+				<td>@item.Degree</td>
+				<td>@item.Cost</td>
+				<td>@item.Duration</td>
+				<td>@item.Category.Name</td>
+				<td>@item.University.Name</td>
+				<td>@item.Country.Name</td>
+				<td>@item.Department.Name</td>
 				<td>
 					<a class="btn btn-outline-success" asp-action="Details" asp-route-id="@item.Id">Details</a>
 				</td>
@@ -53,7 +68,7 @@
 				<td>
 					<a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 				</td>
-		</tr>
-	}
+			</tr>
+		}
 	</tbody>
 </table>

@@ -1,0 +1,97 @@
+﻿@model ScholarshipVM
+
+<div asp-validation-summary="All"></div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="Degree" class="control-label"></label>
+            <input asp-for="Degree" class="form-control" />
+            <span asp-validation-for="Degree" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="example-textarea">Description</label>
+    <textarea class="form-control" asp-for="Description" id="example-textarea" rows="4"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="StartDate" class="control-label"></label>
+            <input asp-for="StartDate" class="form-control" type="date" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="EndDate" class="control-label"></label>
+            <input asp-for="EndDate" class="form-control" type="date" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="Cost" class="control-label"></label>
+            <input asp-for="Cost" class="form-control" />
+            <span asp-validation-for="Cost" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="Duration" class="control-label"></label>
+            <input asp-for="Duration" class="form-control" />
+            <span asp-validation-for="Duration" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="inputState">Category Name</label>
+            <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories,"Id","Name"))">
+                <option value="0">Choose Category Name</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="inputState">University Name</label>
+            <select asp-for="UniversityId" class="form-control" asp-items="@(new SelectList(Model.Universities,"Id","Name"))">
+                <option value="0">Choose University Name</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="inputState">Country Name</label>
+            <select asp-for="CountryId" class="form-control" asp-items="@(new SelectList(Model.Countries,"Id","Name"))">
+                <option value="0">Choose Country Name</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="inputState">Department Name</label>
+            <select asp-for="DepartmentId" class="form-control" asp-items="@(new SelectList(Model.Departments,"Id","Name"))">
+                <option value="0">Choose Department Name</option>
+            </select>
+        </div>
+    </div>
+</div>

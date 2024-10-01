@@ -1,0 +1,24 @@
+﻿@model RequirementVM
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Scholarship Requirement Details</h1>
+
+<div>
+
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">Scholarship Name</dt>
+		<dd class="col-sm-10">@Model.Scholarship.Name</dd>
+
+		<dt class="col-sm-2">Requirement</dt>
+		<dd class="col-sm-10">@Model.Requirement</dd>
+	</dl>
+</div>
+
+<div class=" mt-4">
+	<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+
+	<a asp-action="Index" class="btn btn-light">Back</a>
+</div>
