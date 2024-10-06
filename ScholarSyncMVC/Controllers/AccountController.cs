@@ -43,10 +43,11 @@ namespace ScholarSyncMVC.Controllers
                 AppUser account= new AppUser();
                 account.Email = model.Email;
                 account.UserName = model.UserName;
-                account.PasswordHash = model.Password;
                 account.FirstName = model.FirstName;
                 account.LastName = model.LastName;
-                account.DepartmentId = 3;
+                account.DepartmentId = 1;
+                account.Description = "Ay hga";
+                account.Nationality = "Egyption";
 
                 AppUser user= new AppUser();
                 user = await userManager.FindByEmailAsync(account.Email);
@@ -66,8 +67,6 @@ namespace ScholarSyncMVC.Controllers
                     //    new Claim("Name",user.FirstName),
                     //    new Claim(ClaimTypes.Role,"User")
                     //};
-
-
                    await signInManager.SignInAsync(account,false);
 
 

@@ -30,6 +30,8 @@ namespace ScholarSyncMVC.ViewModels
         [DisplayName("Username")]
         public string UserName { get; set; }
 
+        public string? Description { get; set; }
+        public string? Nationality { get; set; }
         [Required(ErrorMessage = "Password is required.")]
         [MaxLength(25, ErrorMessage = "Max 25 characters allowed.")]
         [DataType(DataType.Password)]

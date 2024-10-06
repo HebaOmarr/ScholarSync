@@ -12,8 +12,8 @@ using ScholarSyncMVC.Data;
 namespace ScholarSyncMVC.Data.Migrations
 {
     [DbContext(typeof(ScholarSyncConext))]
-    [Migration("20241004160146_acc")]
-    partial class acc
+    [Migration("20241006210516_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -173,11 +173,10 @@ namespace ScholarSyncMVC.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DepartmentId")
+                    b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
@@ -364,10 +363,18 @@ namespace ScholarSyncMVC.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -550,9 +557,7 @@ namespace ScholarSyncMVC.Data.Migrations
                 {
                     b.HasOne("ScholarSyncMVC.Models.Department", "Department")
                         .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentId");
 
                     b.Navigation("Department");
                 });

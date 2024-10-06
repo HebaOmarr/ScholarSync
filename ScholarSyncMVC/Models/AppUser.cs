@@ -27,11 +27,11 @@ namespace ScholarSyncMVC.Models
 
         [AllowNull]
         [MaxLength(250, ErrorMessage = "Max 250 characters allowed.")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
 
         [ForeignKey(nameof(Department))]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
         public virtual Department? Department { get; set; }
 
     }

@@ -119,7 +119,12 @@ namespace ScholarSyncMVC.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DepartmentId = table.Column<int>(type: "int", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    BirthDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    Nationality = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    DepartmentId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -142,12 +147,11 @@ namespace ScholarSyncMVC.Data.Migrations
                         name: "FK_AspNetUsers_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Scholarships",
+                name: "Scholarship",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -168,27 +172,27 @@ namespace ScholarSyncMVC.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Scholarships", x => x.Id);
+                    table.PrimaryKey("PK_Scholarship", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Scholarships_Categories_CategoryId",
+                        name: "FK_Scholarship_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Scholarships_Countries_CountryId",
+                        name: "FK_Scholarship_Countries_CountryId",
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Scholarships_Departments_DepartmentId",
+                        name: "FK_Scholarship_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Scholarships_Universities_UniversityId",
+                        name: "FK_Scholarship_Universities_UniversityId",
                         column: x => x.UniversityId,
                         principalTable: "Universities",
                         principalColumn: "Id",
@@ -303,9 +307,9 @@ namespace ScholarSyncMVC.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Applications_Scholarships_ScholarshipId",
+                        name: "FK_Applications_Scholarship_ScholarshipId",
                         column: x => x.ScholarshipId,
-                        principalTable: "Scholarships",
+                        principalTable: "Scholarship",
                         principalColumn: "Id");
                 });
 
@@ -324,9 +328,9 @@ namespace ScholarSyncMVC.Data.Migrations
                 {
                     table.PrimaryKey("PK_Requirements", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Requirements_Scholarships_ScholarShipId",
+                        name: "FK_Requirements_Scholarship_ScholarShipId",
                         column: x => x.ScholarShipId,
-                        principalTable: "Scholarships",
+                        principalTable: "Scholarship",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -391,23 +395,23 @@ namespace ScholarSyncMVC.Data.Migrations
                 column: "ScholarShipId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Scholarships_CategoryId",
-                table: "Scholarships",
+                name: "IX_Scholarship_CategoryId",
+                table: "Scholarship",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Scholarships_CountryId",
-                table: "Scholarships",
+                name: "IX_Scholarship_CountryId",
+                table: "Scholarship",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Scholarships_DepartmentId",
-                table: "Scholarships",
+                name: "IX_Scholarship_DepartmentId",
+                table: "Scholarship",
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Scholarships_UniversityId",
-                table: "Scholarships",
+                name: "IX_Scholarship_UniversityId",
+                table: "Scholarship",
                 column: "UniversityId");
         }
 
@@ -442,7 +446,7 @@ namespace ScholarSyncMVC.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Scholarships");
+                name: "Scholarship");
 
             migrationBuilder.DropTable(
                 name: "Categories");
