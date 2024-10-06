@@ -62,6 +62,7 @@ namespace ScholarSyncMVC.Controllers
                     {
                         ModelState.AddModelError("PhotoURL", "Please Enter Photo");
                     }
+
                     var CatMapped = _mapper.Map<CategoryCreatedVM, Category>(categoryVM);
                     CatMapped.FilePath = Path.Combine(_environment.ContentRootPath, "wwwroot\\Uploads\\category", CatMapped.PhotoURL);
 
@@ -77,7 +78,8 @@ namespace ScholarSyncMVC.Controllers
                 catch (Exception ex)
                 {
 
-                    ModelState.AddModelError(string.Empty, ex.InnerException.Message);
+                    ModelState.AddModelError(string.Empty, ex.InnerException?.Message ?? ex.Message);
+
                 }
             }
 
@@ -119,9 +121,10 @@ namespace ScholarSyncMVC.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError(string.Empty, e.InnerException.Message);
+                    ModelState.AddModelError(string.Empty, ex.InnerException?.Message ?? ex.Message);
+
                 }
             }
             return View(categoryVM);

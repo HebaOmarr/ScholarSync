@@ -1,4 +1,4 @@
-﻿@model Department
+﻿@model CounryDeptEditVM
 @{
     ViewData["Title"] = "Delete";
 }
@@ -17,19 +17,34 @@
 <div>
     <form asp-action="Delete" method="post">
 
-        <div class="col-md-4 mb-3" hidden>
+        <div class="col-md-4 mb-3">
             <label asp-for="Id"></label>
-            <input type="text" class="form-control" asp-for="Id" readonly />
+            <input type="text" class="form-control" asp-for="Id" readonly>
+
         </div>
         <div class="col-md-4 mb-3">
             <label asp-for="Name"></label>
             <input type="text" class="form-control" asp-for="Name" readonly>
+
         </div>
-        
+
+        <div class="col-md-4 mb-3" hidden>
+            <label>Path</label>
+            <input type="text" class="form-control" asp-for="FilePath" readonly>
+
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="col-form-label fw-bold fs-4">Photo</label>
+            <div class="image-container">
+                <img src="~/Uploads/department/@Model.PhotoURL" class="rounded-2 img-fluid img-thumbnail" alt="Category Image" />
+            </div>
+        </div>
+        <input type="hidden" asp-for="PhotoURL" />
         <div class="form-group mt-4">
             <input type="submit" value="Delete" class="btn btn-danger " />
             <a asp-action="Index" class="btn btn-light">Back</a>
         </div>
+
 
     </form>
 

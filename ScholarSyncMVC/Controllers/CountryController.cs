@@ -31,7 +31,7 @@ namespace ScholarSyncMVC.Controllers
         {
             var item = await _country.GetAsync(id);
             if (item == null) return RedirectToAction(nameof(Index));
-            var itemMapped = _mapper.Map<Country, CountryVM>(item);
+            var itemMapped = _mapper.Map<Country, CountryDepartmentVM>(item);
             return View(itemMapped);
         }
 
@@ -44,7 +44,7 @@ namespace ScholarSyncMVC.Controllers
         //Create New Category --post  Category/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CountryVM countryVM)
+        public IActionResult Create(CountryDepartmentVM countryVM)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +60,7 @@ namespace ScholarSyncMVC.Controllers
                     {
                         ModelState.AddModelError("PhotoURL", "Please Enter Photo");
                     }
-                    var CouMapped = _mapper.Map<CountryVM, Country>(countryVM);
+                    var CouMapped = _mapper.Map<CountryDepartmentVM, Country>(countryVM);
                     CouMapped.FilePath = Path.Combine(_environment.ContentRootPath, "wwwroot\\Uploads\\country", CouMapped.PhotoURL);
 
                     _country.Add(CouMapped);
@@ -75,7 +75,8 @@ namespace ScholarSyncMVC.Controllers
                 catch (Exception ex)
                 {
 
-                    ModelState.AddModelError(string.Empty, ex.InnerException.Message);
+                    ModelState.AddModelError(string.Empty, ex.InnerException?.Message ?? ex.Message);
+
                 }
             }
 
@@ -92,14 +93,14 @@ namespace ScholarSyncMVC.Controllers
             {
                 return NotFound();
             }
-            var itemMapped = _mapper.Map<Country, CounryEditVM>(item);
+            var itemMapped = _mapper.Map<Country, CounryDeptEditVM>(item);
             return View(itemMapped);
         }
 
         //Edit category --post Category/Edit/id
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, CounryEditVM counryVM)
+        public async Task<IActionResult> Edit(int id, CounryDeptEditVM counryVM)
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +115,7 @@ namespace ScholarSyncMVC.Controllers
                         }
                         counryVM.PhotoURL = DocumentSetting.UploadFile(counryVM.PhotoFile, "country");
                     }
-                    var couMapped = _mapper.Map<CounryEditVM, Country>(counryVM);
+                    var couMapped = _mapper.Map<CounryDeptEditVM, Country>(counryVM);
                     couMapped.FilePath = Path.Combine(_environment.ContentRootPath, "wwwroot\\Uploads\\country", couMapped.PhotoURL);
                     _country.Update(couMapped);
                     var count = _country.Complet();
@@ -124,9 +125,10 @@ namespace ScholarSyncMVC.Controllers
                     }
                     return RedirectToAction(nameof(Index));
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError(string.Empty, e.InnerException.Message);
+                    ModelState.AddModelError(string.Empty, ex.InnerException?.Message ?? ex.Message);
+
                 }
             }
             return View(counryVM);
@@ -141,11 +143,11 @@ namespace ScholarSyncMVC.Controllers
         //Delete category --post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, CountryVM countryVM)
+        public IActionResult Delete(int id, CountryDepartmentVM countryVM)
         {
             try
             {
-                var country = _mapper.Map<CountryVM, Country>(countryVM);
+                var country = _mapper.Map<CountryDepartmentVM, Country>(countryVM);
                 if (System.IO.File.Exists(country.FilePath))
                 {
                     System.IO.File.Delete(country.FilePath);

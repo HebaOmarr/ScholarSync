@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using ScholarSyncMVC.Helper;
 using ScholarSyncMVC.Models;
 using ScholarSyncMVC.Repository.Contract;
 using ScholarSyncMVC.ViewModels;
@@ -8,10 +10,15 @@ namespace ScholarSyncMVC.Controllers
     public class DepartmentController : Controller
     {
         private readonly IGenericRepository<Department> _department;
+        private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _environment;
 
-        public DepartmentController(IGenericRepository<Department> department)
+        public DepartmentController(IGenericRepository<Department> department,IMapper mapper
+            ,IWebHostEnvironment environment)
         {
             _department = department;
+           _mapper = mapper;
+            _environment = environment;
         }
         public async Task<IActionResult> Index()
         {
@@ -32,7 +39,8 @@ namespace ScholarSyncMVC.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View(item);
+            var itemMapped = _mapper.Map<Department, CounryDeptEditVM>(item);
+            return View(itemMapped);
         }
 
 
@@ -43,13 +51,25 @@ namespace ScholarSyncMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Department department)
+        public IActionResult Create(CountryDepartmentVM departmentVM)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _department.Add(department);
+					departmentVM.PhotoURL = departmentVM.PhotoFile?.FileName;
+					if (departmentVM.PhotoFile != null)
+					{
+						departmentVM.PhotoURL = DocumentSetting.UploadFile(departmentVM.PhotoFile, "department");
+					}
+					else
+					{
+						ModelState.AddModelError("PhotoURL", "Please Enter Photo");
+					}
+					var deptMapped = _mapper.Map<CountryDepartmentVM, Department>(departmentVM);
+					deptMapped.FilePath = Path.Combine(_environment.ContentRootPath, "wwwroot\\Uploads\\department", deptMapped.PhotoURL);
+
+					_department.Add(deptMapped);
                     var count = _department.Complet();
                     if (count > 0)
                     {
@@ -62,7 +82,7 @@ namespace ScholarSyncMVC.Controllers
                     ModelState.AddModelError(string.Empty, ex.InnerException?.Message ?? ex.Message);
                 }
             }
-            return View(department);
+            return View(departmentVM);
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -72,13 +92,25 @@ namespace ScholarSyncMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Department department)
+        public IActionResult Edit(CounryDeptEditVM departmentVM)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _department.Update(department);
+					if (departmentVM.PhotoFile != null)
+					{
+						if (System.IO.File.Exists(departmentVM.FilePath))
+						{
+							System.IO.File.Delete(departmentVM.FilePath);
+						}
+						departmentVM.PhotoURL = DocumentSetting.UploadFile(departmentVM.PhotoFile, "department");
+					}
+					var deptMapped = _mapper.Map<CounryDeptEditVM, Department>(departmentVM);
+
+                    deptMapped.FilePath = Path.Combine(_environment.ContentRootPath, "wwwroot\\Uploads\\department", deptMapped.PhotoURL);
+
+                    _department.Update(deptMapped);
                     var count = _department.Complet();
                     if (count > 0)
                     {
@@ -93,7 +125,7 @@ namespace ScholarSyncMVC.Controllers
                 }
 
             }
-            return View(department);
+            return View(departmentVM);
 
         }
         public async Task<IActionResult> Delete(int id)
@@ -103,10 +135,15 @@ namespace ScholarSyncMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, Department department)
+        public IActionResult Delete(int id, CounryDeptEditVM departmentVm)
         {
             try
             {
+                var department = _mapper.Map<CounryDeptEditVM, Department>(departmentVm);
+                if (System.IO.File.Exists(department.FilePath))
+                {
+                    System.IO.File.Delete(department.FilePath);
+                }
                 department.IsDeleted = true; // Assuming you have a soft delete flag
                 _department.Update(department);
                 var count = _department.Complet();
@@ -121,7 +158,7 @@ namespace ScholarSyncMVC.Controllers
             catch
             {
                 TempData["message"] = "Delete Operation Failed";
-                return View(department);
+                return View(departmentVm);
             }
         }
     }

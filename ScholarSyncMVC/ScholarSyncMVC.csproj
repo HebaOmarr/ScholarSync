@@ -24,6 +24,18 @@
   <ItemGroup>
     <Folder Include="wwwroot\Uploads\category\" />
     <Folder Include="wwwroot\Uploads\country\" />
+    <Folder Include="wwwroot\Uploads\department\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\.DS_Store" />
+    <None Include="wwwroot\css\.DS_Store" />
+    <None Include="wwwroot\fonts\.DS_Store" />
+    <None Include="wwwroot\fonts\flaticon\.DS_Store" />
+    <None Include="wwwroot\images\.DS_Store" />
+    <None Include="wwwroot\js\.DS_Store" />
+    <None Include="wwwroot\scss\.DS_Store" />
+    <None Include="wwwroot\scss\bootstrap\.DS_Store" />
   </ItemGroup>
 
 </Project>

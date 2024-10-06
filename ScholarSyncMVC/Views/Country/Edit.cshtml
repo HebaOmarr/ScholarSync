@@ -1,4 +1,4 @@
-﻿@model CounryEditVM
+﻿@model CounryDeptEditVM
 @{
     ViewData["Title"] = "Edit";
 }
@@ -43,7 +43,7 @@
                 </dl>
             </div>
             <div class="col">
-                @* <label  class="control-label fw-bold fs-4">صوره</label> *@
+                <label class="control-label fw-bold fs-4">Photo</label>
                 <input asp-for="PhotoFile" class="form-control form-control-lg" type="file" placeholder="صوره" id="formFile" />
                 <span asp-validation-for="PhotoFile" class="text-danger"></span>
             </div>
@@ -58,5 +58,9 @@
     </form>
 
 </div>
-
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
