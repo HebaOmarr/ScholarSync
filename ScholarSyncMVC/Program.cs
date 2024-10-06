@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using ScholarSyncMVC.Data;
 using ScholarSyncMVC.Helper;
 using ScholarSyncMVC.Models;
@@ -16,12 +18,20 @@ namespace ScholarSyncMVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
+
             //Context Services
             builder.Services.AddDbContext<ScholarSyncConext>(options => options.UseSqlServer
             (builder.Configuration.GetConnectionString("conn")));
 
             //Identity Services 
-            builder.Services.AddIdentity<AppUser, IdentityRole>()
+            builder.Services.AddIdentity<AppUser, IdentityRole>(options=>
+            {
+                options.Password.RequiredUniqueChars = 0 ;
+                options.Password.RequireUppercase = false;
+
+            })
                 .AddEntityFrameworkStores<ScholarSyncConext>();
             builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
             builder.Services.AddAutoMapper(typeof(MappingConfig));
@@ -42,6 +52,7 @@ namespace ScholarSyncMVC
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
