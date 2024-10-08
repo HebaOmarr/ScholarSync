@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using ScholarSyncMVC.Models;
 using ScholarSyncMVC.Repository.Contract;
 using ScholarSyncMVC.ViewModels;
+using System.Diagnostics;
+using ScholarSyncMVC.Helper;
+using System.Collections.Generic;
+using System.Drawing.Printing;
 
 namespace ScholarSyncMVC.Controllers
 {
@@ -14,10 +18,11 @@ namespace ScholarSyncMVC.Controllers
         private readonly IGenericRepository<Country> _country;
         private readonly IGenericRepository<Department> _department;
         private readonly IGenericRepository<Category> _category;
+        private readonly IWebHostEnvironment _environment;
 
-        public ScholarshipController(IScholarship scholarship , IMapper mapper,
+		public ScholarshipController(IScholarship scholarship , IMapper mapper,
             IGenericRepository<University> university, IGenericRepository<Country> country
-            ,IGenericRepository<Department> department , IGenericRepository<Category> category)
+            ,IGenericRepository<Department> department , IGenericRepository<Category> category, IWebHostEnvironment environment)
         {
             _scholarship = scholarship;
             _mapper = mapper;
@@ -25,6 +30,8 @@ namespace ScholarSyncMVC.Controllers
             _country = country;
             _department = department;
             _category = category;
+            _environment = environment;
+
         }
         public async Task<IActionResult> Index()
         {
@@ -64,32 +71,51 @@ namespace ScholarSyncMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ScholarshipVM scholarshipVM)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var schMapped = _mapper.Map<ScholarshipVM, Scholarship>(scholarshipVM);
-                    _scholarship.Add(schMapped);
-                    var count = _scholarship.Complet();
+	        if (ModelState.IsValid)
+	        {
+		        try
+		        {
 
-                    if (count > 0)
-                    {
-                        TempData["message"] = "Scholarship Added Successfully";
-                    }
-                    else
-                    {
-                        TempData["message"] = "Failed Add Operation";
-                    }
+			        scholarshipVM.PhotoURL = scholarshipVM.PhotoFile?.FileName;
 
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError(string.Empty, ex.InnerException?.Message ?? ex.Message);
-                }
-            }
+			        if (scholarshipVM.PhotoFile != null)
+			        {
+				        scholarshipVM.PhotoURL = DocumentSetting.UploadFile(scholarshipVM.PhotoFile, "scholarship");
+			        }
+			        else
+			        {
+				        ModelState.AddModelError("PhotoURL", "Please Enter Photo");
+			        }
 
-            return View(scholarshipVM);
+			        var schMapped = _mapper.Map<ScholarshipVM, Scholarship>(scholarshipVM);
+
+			        //	schMapped.FilePath = Path.Combine(_environment.ContentRootPath, "wwwroot\\Uploads\\category", schMapped.PhotoURL);
+
+			        schMapped.FilePath = Path.Combine(_environment.ContentRootPath, "wwwroot\\Uploads\\scholarship",
+				        schMapped.PhotoURL);
+
+			        _scholarship.Add(schMapped);
+
+			        var count = _scholarship.Complet();
+
+			        if (count > 0)
+			        {
+				        TempData["message"] = "Scholarship Added Successfully";
+			        }
+			        else
+			        {
+				        TempData["message"] = "Failed Add Operation";
+			        }
+
+			        return RedirectToAction(nameof(Index));
+		        }
+		        catch (Exception ex)
+		        {
+			        ModelState.AddModelError(string.Empty, ex.InnerException?.Message ?? ex.Message);
+		        }
+	        }
+
+	        return View(scholarshipVM);
         }
 
 
@@ -116,7 +142,19 @@ namespace ScholarSyncMVC.Controllers
             {
                 try
                 {
+
+                    if (scholarshipVM.PhotoFile != null)
+                    {
+                        if (System.IO.File.Exists(scholarshipVM.FilePath))
+                        {
+                            System.IO.File.Delete(scholarshipVM.FilePath);
+                        }
+                        scholarshipVM.PhotoURL = DocumentSetting.UploadFile(scholarshipVM.PhotoFile, "scholarship");
+                    }
+
                     var schMapped = _mapper.Map<ScholarshipVM, Scholarship>(scholarshipVM);
+                    schMapped.FilePath = Path.Combine(_environment.ContentRootPath, "wwwroot\\Uploads\\scholarship", schMapped.PhotoURL);
+
                     _scholarship.Update(schMapped);
                     var count = _scholarship.Complet();
 
@@ -151,7 +189,12 @@ namespace ScholarSyncMVC.Controllers
         {
 			try
 			{
-				var scholarship = _mapper.Map<ScholarshipVM, Scholarship>(scholarshipVM);
+                var scholarship = _mapper.Map<ScholarshipVM, Scholarship>(scholarshipVM);
+                if (System.IO.File.Exists(scholarship.FilePath))
+                {
+                    System.IO.File.Delete(scholarship.FilePath);
+                }
+
 				scholarship.IsDeleted = true; // Assuming you have a soft delete flag
 				_scholarship.Update(scholarship);
 				var count = _scholarship.Complet();
@@ -169,6 +212,52 @@ namespace ScholarSyncMVC.Controllers
 				return View(scholarshipVM);
 			}
 		}
+
+        // scholarship viewcard
+        public async Task<IActionResult> viewcardscolarship(int page = 1, int pageSize = 4)
+        {
+            var list = await _scholarship.GetAllWithTables();
+            if (list == null || !list.Any())
+            {
+                return Content("No scholarships found.");
+            }
+
+            var filteredList = list.Where(s => s.CategoryId == 1).ToList();
+
+            var paginatedList = filteredList.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            ViewBag.TotalPages = (int)Math.Ceiling((double)filteredList.Count() / pageSize);
+            ViewBag.CurrentPage = page;
+            ViewBag.CategoryId = 1;
+
+            return View(paginatedList);
+
+        }
+
+        public async Task<IActionResult> viewcardExchangeprogram(int page = 1, int pageSize = 4)
+        {
+
+            var list = await _scholarship.GetAllWithTables();
+
+            if (list == null || !list.Any())
+            {
+                return Content("No scholarships found.");
+            }
+
+            var filteredList = list.Where(s => s.CategoryId == 2).ToList();
+
+            var paginatedList = filteredList.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            ViewBag.TotalPages = (int)Math.Ceiling((double)filteredList.Count() / pageSize);
+            ViewBag.CurrentPage = page;
+            ViewBag.CategoryId = 2;
+
+            return View(paginatedList);
+
+
+
+        }
+
 
     }
 }

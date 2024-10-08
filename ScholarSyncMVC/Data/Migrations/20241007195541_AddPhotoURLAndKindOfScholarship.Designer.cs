@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ScholarSyncMVC.Data;
 
@@ -11,9 +12,11 @@ using ScholarSyncMVC.Data;
 namespace ScholarSyncMVC.Data.Migrations
 {
     [DbContext(typeof(ScholarSyncConext))]
-    partial class ScholarSyncConextModelSnapshot : ModelSnapshot
+    [Migration("20241007195541_AddPhotoURLAndKindOfScholarship")]
+    partial class AddPhotoURLAndKindOfScholarship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -445,10 +448,6 @@ namespace ScholarSyncMVC.Data.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -457,7 +456,6 @@ namespace ScholarSyncMVC.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoURL")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
@@ -465,6 +463,9 @@ namespace ScholarSyncMVC.Data.Migrations
 
                     b.Property<int>("UniversityId")
                         .HasColumnType("int");
+
+                    b.Property<string>("kindOfscholarship")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
