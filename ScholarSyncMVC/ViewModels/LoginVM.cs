@@ -14,6 +14,7 @@ namespace ScholarSyncMVC.ViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        public bool RememberMe { get; set; }
+		[DisplayName("تذكرني")]
+		public bool RememberMe { get; set; }
     }
 }

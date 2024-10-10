@@ -45,9 +45,9 @@ namespace ScholarSyncMVC.Controllers
                 account.UserName = model.UserName;
                 account.FirstName = model.FirstName;
                 account.LastName = model.LastName;
-                account.DepartmentId = 1;
-                account.Description = "Ay hga";
-                account.Nationality = "Egyption";
+                //account.DepartmentId = 1;
+                //account.Description = "Ay hga";
+                //account.Nationality = "Egyption";
 
                 AppUser user= new AppUser();
                 user = await userManager.FindByEmailAsync(account.Email);
