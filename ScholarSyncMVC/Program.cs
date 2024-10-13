@@ -37,6 +37,8 @@ namespace ScholarSyncMVC
             builder.Services.AddAutoMapper(typeof(MappingConfig));
             builder.Services.AddScoped<IScholarship, ScholarshipRepository>();
             builder.Services.AddScoped<IRequirement, RequirementRepository>();
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -408,6 +408,42 @@ namespace ScholarSyncMVC.Data.Migrations
                     b.ToTable("Requirements");
                 });
 
+            modelBuilder.Entity("ScholarSyncMVC.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float?>("Rating")
+                        .HasColumnType("real");
+
+                    b.Property<int>("ScholarshipId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScholarshipId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("ScholarSyncMVC.Models.Scholarship", b =>
                 {
                     b.Property<int>("Id")
@@ -468,7 +504,7 @@ namespace ScholarSyncMVC.Data.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("Scholarship");
+                    b.ToTable("Scholarships");
                 });
 
             modelBuilder.Entity("ScholarSyncMVC.Models.University", b =>
@@ -585,6 +621,25 @@ namespace ScholarSyncMVC.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Scholarship");
+                });
+
+            modelBuilder.Entity("ScholarSyncMVC.Models.Review", b =>
+                {
+                    b.HasOne("ScholarSyncMVC.Models.Scholarship", "Scholarship")
+                        .WithMany()
+                        .HasForeignKey("ScholarshipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ScholarSyncMVC.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Scholarship");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ScholarSyncMVC.Models.Scholarship", b =>

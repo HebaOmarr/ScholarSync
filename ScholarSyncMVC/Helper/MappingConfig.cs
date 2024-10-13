@@ -17,9 +17,10 @@ namespace ScholarSyncMVC.Helper
             CreateMap<Department, CounryDeptEditVM>().ReverseMap();
             CreateMap<Country, CounryDeptEditVM>().ReverseMap();
             CreateMap<Requirements, RequirementVM>().ReverseMap();
-
-
-
+            CreateMap<Department, SimpleDept>().ReverseMap();
+            CreateMap<Review, ReviewVM>()
+                .ForMember(x => x.FullName , z => z.MapFrom(x => x.User.FirstName +" "+x.User.LastName))
+                .ForMember(x => x.DepartmentName, z => z.MapFrom(x => x.User.Department.Name)).ReverseMap();
 
         }
     }
