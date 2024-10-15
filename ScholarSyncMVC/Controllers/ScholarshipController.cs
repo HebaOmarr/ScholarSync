@@ -68,7 +68,7 @@ namespace ScholarSyncMVC.Controllers
 
         // POST: University/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       [ValidateAntiForgeryToken]
         public IActionResult Create(ScholarshipVM scholarshipVM)
         {
 	        if (ModelState.IsValid)
