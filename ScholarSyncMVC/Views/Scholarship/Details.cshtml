@@ -49,12 +49,7 @@
             <input asp-for="Cost" class="form-control" readonly/>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label asp-for="Duration" class="control-label"></label>
-            <input asp-for="Duration" class="form-control" readonly/>
-        </div>
-    </div>
+    
 </div>
 
 <div class="row">
@@ -75,21 +70,29 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="inputState">Country Name</label>
-            <input asp-for="CountryId" class="form-control" hidden />
-            <input asp-for="Country.Name" class="form-control" readonly />
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="inputState">Department Name</label>
-            <input asp-for="DepartmentId" class="form-control" hidden />
-            <input asp-for="Department.Name" class="form-control" readonly />
-        </div>
-    </div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label for="inputState">Country Name</label>
+			<input asp-for="CountryId" class="form-control" hidden />
+			<input asp-for="Country.Name" class="form-control" readonly />
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label for="inputState">Department Name</label>
+			<input asp-for="DepartmentId" class="form-control" hidden />
+			<input asp-for="Department.Name" class="form-control" readonly />
+		</div>
+	</div>
+	
+	<dt class="col-sm-2">
+		Photo
+	</dt>
+        <img src="~/Uploads/scholarship/@Model.PhotoURL" class="w-25" alt="Alternate Text" />
 </div>
+
+
+
 <div class=" mt-4">
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
 

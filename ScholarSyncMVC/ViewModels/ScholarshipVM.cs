@@ -8,11 +8,14 @@ namespace ScholarSyncMVC.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
-        public DateTime StartDate { get; set; }
+		public IFormFile PhotoFile { get; set; }
+		public string? PhotoURL { get; set; }
+		public string? FilePath { get; set; }
+
+		public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string Degree { get; set; }
         public Decimal Cost { get; set; }
-        public string Duration { get; set; }
         public Category? Category { get; set; }
 
         public int CategoryId { get; set; }

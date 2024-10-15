@@ -60,12 +60,7 @@
                     <input asp-for="Cost" class="form-control" readonly/>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="Duration" class="control-label"></label>
-                    <input asp-for="Duration" class="form-control" readonly/>
-                </div>
-            </div>
+           
         </div>
 
         <div class="row">
@@ -91,6 +86,24 @@
 
                 </div>
             </div>
+        </div>
+		
+         
+        <div class="col-md-4 mb-3" hidden>
+	        <label>Path</label>
+	        <input type="text" class="form-control" asp-for="FilePath" readonly>
+
+        </div>
+        <div class="col-md-4 mb-3">
+	        <label class="col-form-label fw-bold fs-4">Photo</label>
+	        <div class="image-container">
+		        <img src="~/Uploads/country/@Model.PhotoURL" class="rounded-2 img-fluid img-thumbnail" alt="Category Image" />
+	        </div>
+        </div>
+        <input type="hidden" asp-for="PhotoURL" />
+        <div class="form-group mt-4">
+	        <input type="submit" value="Delete" class="btn btn-danger " />
+	        <a asp-action="Index" class="btn btn-light">Back</a>
         </div>
 
         <div class="row">

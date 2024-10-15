@@ -60,6 +60,7 @@ namespace ScholarSyncMVC.Controllers
                     {
                         ModelState.AddModelError("PhotoURL", "Please Enter Photo");
                     }
+
                     var CouMapped = _mapper.Map<CountryDepartmentVM, Country>(countryVM);
                     CouMapped.FilePath = Path.Combine(_environment.ContentRootPath, "wwwroot\\Uploads\\country", CouMapped.PhotoURL);
 

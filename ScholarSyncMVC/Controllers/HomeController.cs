@@ -1,5 +1,7 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.HttpSys;
 using ScholarSyncMVC.Models;
 using ScholarSyncMVC.Repository.Contract;
 using ScholarSyncMVC.ViewModels;
@@ -29,11 +31,12 @@ namespace ScholarSyncMVC.Controllers
             _scholarship = scholarship;
             _configuration = configuration;
         }
-
+        // [Authorize(AuthenticationSchemes = "Cookies")]
         public async Task<IActionResult> Index()
         {
             try
             {
+              
                 var departments = await _department.GetAll();
                 var deptMapped = _mapper.Map<IEnumerable<Department>, IEnumerable<SimpleDept>>(departments);
                 foreach (var dept in deptMapped)
@@ -65,6 +68,10 @@ namespace ScholarSyncMVC.Controllers
             return View();
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
