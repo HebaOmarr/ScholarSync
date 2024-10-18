@@ -1,4 +1,5 @@
-﻿<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
+﻿@model IEnumerable<ReviewVM>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
@@ -20,9 +21,9 @@
                 <div class="row">
                     <div class="col-md-6 d-flex">
                         <div class="d-flex about-wrap">
-                            <div class="img d-flex align-items-center justify-content-center" style="background-image:url(images/about.jpg);">
+                            <div class="img d-flex align-items-center justify-content-center" style="background-image:url(/images/about.jpg);">
                             </div>
-                            <div class="img-2 d-flex align-items-center justify-content-center" style="background-image:url(images/bg_4.jpg);">
+                            <div class="img-2 d-flex align-items-center justify-content-center" style="background-image:url(/images/bg_4.jpg);">
                             </div>
                         </div>
                     </div>
@@ -45,7 +46,7 @@
 
 
 <section class="ftco-section testimony-section bg-light">
-    <div class="overlay" style="background-image: url(images/work-1.jpg);"></div>
+    <div class="overlay" style="background-image: url(/images/work-1.jpg);"></div>
     <div class="container">
         <div class="row pb-4">
             <div class="col-md-7 heading-section ftco-animate">
@@ -58,69 +59,33 @@
         <div class="row ftco-animate">
             <div class="col-md-12">
                 <div class="carousel-testimony owl-carousel">
-                    <div class="item">
-                        <div class="testimony-wrap py-4">
-                            <div class="text">
-                                <p class="star">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </p>
-                                <p class="mb-4">"منحة الدراسة في الخارج منحتني الفرصة لتطوير مهاراتي الأكاديمية والعملية، وأصبح لدي الآن آفاق جديدة لتحقيق طموحاتي."</p>
-                                <div class="d-flex align-items-center">
-                                    <div class="user-img" style="background-image: url(images/fady.jpg)"></div>
-                                    <div class="pl-3">
-                                        <p class="name">أحمد علي</p>
-                                        <span class="position">طالب هندسة</span>
+                    @if (Model.Any())
+                    {
+                        @foreach (var review in Model)
+                        {
+                            <div class="item">
+                                <div class="testimony-wrap py-4">
+                                    <div class="text">
+                                        <p class="star">
+                                            @for (int i = 1; i <= review.Rating; i++)
+                                            {
+                                                <span class="fa fa-star" style="color: gold;"></span>
+                                            }
+
+                                        </p>
+                                        <p class="mb-4">@review.Message</p>
+                                        <div class="d-flex align-items-center">
+                                            <div class="user-img" style="background-image: url(/Uploads/users/@review.UserPhoto)"></div>
+                                            <div class="pl-3">
+                                                <p class="name">@review.FullName</p>
+                                                <span class="position">طالب @review.DepartmentName</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap py-4">
-                            <div class="text">
-                                <p class="star">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </p>
-                                <p class="mb-4">"الدراسة في الخارج غيرت حياتي. الفرص التي أتيحت لي هنا لا تقدر بثمن، وأنا ممتن جدًا لمنحة التعليم الدولية."</p>
-                                <div class="d-flex align-items-center">
-                                    <div class="user-img" style="background-image: url(images/ahmed.jpg)"></div>
-                                    <div class="pl-3">
-                                        <p class="name">سارة محمد</p>
-                                        <span class="position">طالبة علوم الحاسوب</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap py-4">
-                            <div class="text">
-                                <p class="star">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </p>
-                                <p class="mb-4">"منحة التعليم الدولية منحتني فرصة لا مثيل لها للدراسة في إحدى أفضل الجامعات العالمية وتوسيع آفاقي."</p>
-                                <div class="d-flex align-items-center">
-                                    <div class="user-img" style="background-image: url(images/zidan.jpg)"></div>
-                                    <div class="pl-3">
-                                        <p class="name">خالد حسن</p>
-                                        <span class="position">طالب إدارة أعمال</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -132,7 +97,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
-                <div class="img" style="background-image: url(images/bg_4.jpg);">
+                <div class="img" style="background-image: url(/images/bg_4.jpg);">
                     <div class="overlay"></div>
                     <h2>نحن مبادرة "فرص دراسية" لتوفير التعليم الدولي</h2>
                     <p>نحن نساعدك على تحقيق حلمك الأكاديمي في الخارج من خلال توفير أفضل المنح الدراسية.</p>

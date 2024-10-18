@@ -15,7 +15,7 @@ namespace ScholarSyncMVC.Repository
         }
         public async Task<IEnumerable<Review>> GetAllReviews()
         {
-            return _conext.Reviews.Include(x => x.User).Where(x => x.IsDeleted == false && x.User.DepartmentId != null).ToList();
+            return _conext.Reviews.Include(x => x.User).Where(x => x.IsDeleted == false && x.User.DepartmentId != null && x.User.PhotoURL != null).ToList();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿@model ScholarshipDetailsVM
 
     <style>
         body {
@@ -6,6 +6,22 @@
             font-family: 'Reem Kufi', sans-serif;
             color: black
         }
+        .h1{
+            color: black
+        }
+
+    .align-right {
+        text-align: right;
+        
+    }
+
+    .align-right-list {
+        direction: rtl; /* This moves the bullets and text to the right */
+         /* Ensures the text itself is aligned properly inside */
+    }
+
+   
+    /* Male and female symbols */
     </style>
     <section class="hero-wrap hero-wrap-2"
              style="
@@ -38,14 +54,23 @@
             <h1 itemprop="headline"
                 class="text-2xl md:text-4xl font-[700] mb-4 leading-10 ruqaa"
                 style="font-size: 40px; font-weight: 700;">
-                منحة جامعة هارفارد لدراسة الأعمال
+                @Model.Name
             </h1>
+        <div style="text-align:right; display: flex; flex-direction: row-reverse; gap: 5px;">
+            
+            <p> : مقدمه من</p>
+            <p style="color:#3A6D8C">@Model.UniversityName</p>
+        </div>
 
         </div>
 
         <div class="flex flex-col justify-end mt-6" style="text-align: right; font-size: 24px;">
             <!-- الأزرار الجديدة -->
-            <div style="display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding: 20px; text-align: right;">
+            <div style="display: flex; align-items: center; justify-content: flex-end; gap: 10px; text-align: right;">
+            @if(Model.EndDate > DateTime.Now)
+            {
+                <p style="color:#72BF78; padding-top: 10px ; padding-right:10px">(متاحه للتقديم)</p>
+            }
 
                 <div>
                     <button type="button" style="background-color: #756698; width:200px; color: white; border: none; padding: 10px 20px; font-size: 18px; border-radius: 8px; cursor: pointer;">
@@ -54,8 +79,8 @@
                 </div>
             </div>
 
-            <div style="color: red; font-size: 16px; font-weight: bold; margin-right: 20px;">
-                <span>تاريخ انتهاء الفرصة:</span> <span>2024-11-23</span>
+            <div style="color: red; font-size: 16px; font-weight: bolder; margin-right: 20px;">
+                <span>تاريخ انتهاء الفرصة:</span> <span>@Model.EndDate</span>
             </div>
         </div>
 
@@ -71,11 +96,36 @@
       text-align: right;
       height: 300px;
     ">
+            
+
                     <div class="card-body">
                         <h2 class="card-title">معايير الفرصة</h2>
-                        <p style="font-size: 16px;"><strong>مجال الفرصة:</strong> التغذية والرياضة والصحة، السياسة والاقتصاد، البيئة والطبيعة</p>
-                        <p style="font-size: 16px;"><strong>مكان الفرصة:</strong> المملكة المتحدة</p>
+                       
+                <div style="text-align:right; display: flex; flex-direction: row-reverse; gap: 5px;">
+                        <i class='fas fa-map-marker-alt' style='font-size:24px'></i>
+                    <h4>
+                        <strong> :مكان الفرصه  </strong>
+                    </h4>
+                    <p>@Model.CountryName </p>
+                </div>
+                <div style="text-align:right; display: flex; flex-direction: row-reverse; gap: 5px;padding-top: 10px">
+                        <i class='fas fa-book' style='font-size:24px'></i>
+                    <h4 style="padding-right: 5px">
+                        <strong> : مجال الفرصه </strong>
+                    </h4>
+                    
+                    <p>@Model.DepartmentName </p>
+                </div>
+
+                    <div style="text-align:right; display: flex; flex-direction: row-reverse; gap: 5px;padding-top: 10px">
+                        <i class="fa fa-usd" style="font-size:24px"></i>
+                        <h4 style="padding-right: 5px">
+                            <strong> : تكلفة الفرصه </strong>
+                        </h4>
+
+                        <p>@Model.Cost </p>
                     </div>
+                        </div>
                 </div>
             </div>
             <div class="col-md-8">
@@ -92,6 +142,7 @@
           font-weight: 900;
           text-align: right;
           margin-bottom: 20px;
+
         ">
                         وصف الفرصة
                     </h1>
@@ -103,50 +154,28 @@
             line-height: 1.8;
 
           font-family: 'Reem Kufi', sans-serif;">
-                            تقدم منحة جامعة هارفارد لدراسة الأعمال فرصة رائعة للطلاب المتميزين
-                            الذين يسعون للحصول على درجة الماجستير في إدارة الأعمال. هذه المنحة
-                            الممولة بالكامل تشمل جميع تكاليف الرسوم الدراسية، السكن، السفر،
-                            والتأمين الصحي بالإضافة إلى راتب شهري لتغطية تكاليف المعيشة.
+                           @Model.Description
                         </p>
-                        <p style="
-            font-size: 18px;
-            text-align: right;
-            line-height: 1.8;
-          ">
-                            تهدف منحة هارفارد إلى دعم الطلاب الذين يتمتعون بإمكانات قيادية
-                            كبيرة والتزام قوي بالتغيير المجتمعي. الطلب مفتوح لجميع الطلاب من
-                            مختلف الجنسيات، بشرط أن يكون لديهم خلفية أكاديمية متميزة وسجل مهني
-                            بارز.
-                        </p>
-                        <p style="
-            font-size: 18px;
-            text-align: right;
-            line-height: 1.8;
-          ">
-                            تعتبر جامعة هارفارد واحدة من أعرق الجامعات في العالم، وبرنامج ماجستير
-                            إدارة الأعمال الخاص بها يعد من أفضل البرامج على مستوى العالم. تقدم
-                            المنحة الفرصة لتعلم أحدث مفاهيم الإدارة والاستفادة من شبكة واسعة من
-                            الخريجين والموجهين من مختلف الصناعات.
-                        </p>
+                       
                     </div>
             </div>
             </section>
 
-
-            <section class="container"
+        @if(Model.Benefits != null)
+        {
+            <section 
                      style="
-    margin: 50px 0;
     padding: 20px;
     width: 100%;
     max-width: none;
-  ">
+      ">
 
                 <h1 style="
       font-size: 40px;
 
       font-weight: 900;
       text-align: right;
-    ">
+        ">
                     الفوائد والمنافع
                 </h1>
                 <div class="content ">
@@ -155,41 +184,74 @@
         text-align: right;
         line-height: 1.8;
         padding-left: 20%;
-      ">
-                        توفر منحة جامعة هارفارد لدراسة الأعمال العديد من الفوائد التي تساعد
-                        الطلاب على تحقيق أهدافهم الأكاديمية والمهنية. من أهم الفوائد التي
-                        تقدمها هذه المنحة هي التغطية المالية الشاملة التي تشمل الرسوم الدراسية
-                        بالكامل، مما يتيح للطلاب التركيز على دراستهم دون القلق من التكاليف
-                        المالية.
+          ">
+                       @Model.Benefits
                     </p>
-                    <p style="
-        font-size: 18px;
-        text-align: right;
-        line-height: 1.8;
 
-        padding-left: 20%;
-      ">
-                        بالإضافة إلى ذلك، تشمل المنحة توفير السكن للطلاب طوال فترة الدراسة،
-                        مما يوفر بيئة معيشية مستقرة ومريحة. كما يتم تغطية تكاليف السفر
-                        والتأمين الصحي، مما يمنح الطلاب الأمان والحماية الصحية اللازمة أثناء
-                        تواجدهم في الخارج.
-                    </p>
-                    <p style="
-        font-size: 18px;
-        text-align: right;
-        line-height: 1.8;
-
-        padding-left: 20%;
-      ">
-                        إحدى أبرز المنافع التي تقدمها منحة هارفارد هي الراتب الشهري الذي يساعد
-                        الطلاب في تغطية تكاليف المعيشة، مما يتيح لهم التركيز على الدراسة
-                        والتطوير الشخصي. بالإضافة إلى ذلك، يحصل الطلاب على فرصة للانضمام إلى
-                        شبكة واسعة من الخريجين المحترفين والموجهين الذين يقدمون الدعم والإرشاد
-                        في مختلف المجالات.
-                    </p>
                 </div>
             </section>
+        }
+        @if (Model.requirements.Count != 0)
+        {
+            <section 
+                     style="
+  
+    padding: 20px;
+    width: 100%;
+    max-width: none;
+          ">
 
+                <h1 style="
+      font-size: 40px;
+
+      font-weight: 900;
+      text-align: right;
+            ">
+                    شروط التقديم
+                </h1>
+                <div class="content">
+                    <ul class="align-right-list">
+                        @foreach (var req in Model.requirements)
+                        {
+                            <li class="align-right" style="font-size:18px;">@req</li>
+                        }
+                    </ul>
+                </div>
+            </section>
+        }
+            
+        @if(Model.HowToApply != null)
+        {
+            <section class="container"
+                     style="
+    margin: 50px 0;
+    padding: 20px;
+    width: 100%;
+    max-width: none;
+      ">
+
+                <h1 style="
+      font-size: 40px;
+
+      font-weight: 900;
+      text-align: right;
+        ">
+                   كيفية التقديم
+                </h1>
+                <div class="content ">
+                    <p style="
+        font-size: 18px;
+        text-align: right;
+        line-height: 1.8;
+        padding-left: 20%;
+          ">
+                        @Model.HowToApply
+                    </p>
+
+                </div>
+            </section>
+        }
+       
 
             <section class="container"
                      style="
@@ -222,11 +284,52 @@
     font-weight: 700;
   ">
 
-                <p><strong>الجنسية:</strong> مصري</p>
-                <p><strong>نوع الجنسية:</strong> عربي</p>
-                <p><strong>العمر:</strong> من 18 إلى 30 عامًا</p>
-                <p><strong>الجنس:</strong> ذكر أو أنثى</p>
-                <p><strong>تاريخ الانتهاء:</strong> 31 ديسمبر 2024</p>
+        <div style="text-align:right; display: flex; flex-direction: row-reverse; gap: 5px;">
+                <i class="fa fa-flag-o" style="font-size:24px"></i>
+                <h4 style="padding-right: 5px">
+            <strong> : الجنسية </strong>
+        </h4>
+        
+        @if (Model.Nationality == null)
+            {
+              
+            <p>لا يوجد جنسيه محدده</p>
+            }
+            else
+            {
+                <p>
+                    @Model.Nationality
+                </p>
+            }
+        </div>
+        <div style="text-align:right; display: flex; flex-direction: row-reverse; gap: 5px;">
+                <i class='fas fa-birthday-cake' style='font-size:24px'></i>
+                <h4 style="padding-right: 5px">
+                <strong> : العمر </strong>
+            </h4>
+            @if(Model.MinAge == 0 && Model.MaxAge == 0)
+            {
+                <p> لا يشترط عمر معين</p>
+            }
+            else{
+            <p> من @Model.MinAge إلى @Model.MaxAge عامًا</p>
+
+            }
+        </div>
+        <div style="text-align:right; display: flex; flex-direction: row-reverse; gap: 5px;">
+                <i class='fas fa-transgender-alt' style='font-size:30px'></i>
+                <h4 style="padding-right: 5px">
+                <strong> : الجنس </strong>
+            </h4>
+           <p>@Model.Gender </p>
+         </div>
+        <div style="text-align:right; display: flex; flex-direction: row-reverse; gap: 5px;">
+                <i class='fas fa-file-alt' style='font-size:24px'></i>
+                <h4 style="padding-right: 5px">
+                <strong> : الدرجة  </strong>
+            </h4>
+            <p>@Model.Degree </p>
+        </div>
             </div>
 
         </div>
@@ -234,5 +337,4 @@
 
 
 
-    </div>
-    
+ 

@@ -303,6 +303,47 @@ namespace ScholarSyncMVC.Data.Migrations
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StreetAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StreetAddressLine2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AreaCode = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UniversityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Major = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GPA = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CurrentDegreeLevel = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AcademicTranscripts_FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AcademicTranscripts_FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LanguageProficiencyLevel_FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LanguageProficiencyLevel_FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CV_FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CV_FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MotivationLetter_FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MotivationLetter_FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Recommendationletters_FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Recommendationletters_FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Passport_FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Passport_FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PreviousTravelExperience = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CulturalActivities = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AcademicGoals = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PersonalGoals = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProofOfFinancialAbility_FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProofOfFinancialAbility_FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FundingSources_FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FundingSources_FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProofOfHealthInsurance_FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProofOfHealthInsurance_FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AgreeTerms = table.Column<bool>(type: "bit", nullable: false),
+                    UniversityId = table.Column<int>(type: "int", nullable: false),
+                    CountryId = table.Column<int>(type: "int", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -316,10 +357,28 @@ namespace ScholarSyncMVC.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Applications_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Applications_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Applications_Scholarships_ScholarshipId",
                         column: x => x.ScholarshipId,
                         principalTable: "Scholarships",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Applications_Universities_UniversityId",
+                        column: x => x.UniversityId,
+                        principalTable: "Universities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -375,9 +434,24 @@ namespace ScholarSyncMVC.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Applications_CountryId",
+                table: "Applications",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Applications_DepartmentId",
+                table: "Applications",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Applications_ScholarshipId",
                 table: "Applications",
                 column: "ScholarshipId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Applications_UniversityId",
+                table: "Applications",
+                column: "UniversityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Applications_UserId",

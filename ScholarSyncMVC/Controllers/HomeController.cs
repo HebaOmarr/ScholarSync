@@ -62,13 +62,20 @@ namespace ScholarSyncMVC.Controllers
                 return View();
             }
         }
-
+        [Authorize(AuthenticationSchemes = "Cookies", Roles = ("Admin"))]
         public IActionResult Privacy()
         {
             return View();
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> About()
+        {
+            var Reviews = await _review.GetAllReviews();
+            var ReviewMapped = _mapper.Map<IEnumerable<Review>, IEnumerable<ReviewVM>>(Reviews);
+            
+            return View(ReviewMapped);
+        }
+        public IActionResult ContactUs()
         {
             return View();
         }

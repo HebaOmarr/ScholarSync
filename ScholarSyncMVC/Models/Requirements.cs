@@ -9,6 +9,7 @@ namespace ScholarSyncMVC.Models
         public int ScholarShipId { get; set; }
         public string Requirement { get; set; }
 
+
     }
 
 
