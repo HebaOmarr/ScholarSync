@@ -21,6 +21,7 @@ namespace ScholarSyncMVC.Controllers
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             this.userManager= userManager;
+            //s
             this.signInManager = signInManager;
         }
         public IActionResult Index()
