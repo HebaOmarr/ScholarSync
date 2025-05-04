@@ -1,4 +1,4 @@
-Afaq(آفاق)#
+##Afaq(آفاق)
 ## Overview
 **آفاق (Afaq)** is a platform designed to simplify the scholarship and student exchange application process for students. As part of the Digital Egypt Pioneers Initiative (DEPI) Program, under the supervision of the Ministry of Communications and Information Technology (MCIT), Egypt, Afaq aims to centralize information about international scholarships and exchange programs, enabling students to save time, understand application requirements, and track their applications seamlessly.
 
